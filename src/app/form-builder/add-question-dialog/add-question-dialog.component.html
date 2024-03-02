@@ -1,0 +1,49 @@
+<h2 mat-dialog-title>Add a New Questions</h2>
+<mat-dialog-content>
+
+  <form action="" [formGroup]="questionForm">
+    <mat-form-field appearance="fill" floatLabel="always">
+      <mat-label>Question Type</mat-label>
+      <mat-select formControlName="type">
+        <mat-option *ngFor="let type of questionType" [value]="type.value">{{type.name}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" floatLabel="always">
+      <mat-label>Type question here</mat-label>
+      <input matInput formControlName="question">
+    </mat-form-field>
+
+    <ng-container *ngIf="questionForm.value.type == 'C'">
+      <ng-container *ngFor="let control of listAnswerFormArray.controls; let i = index;">
+        <mat-form-field appearance="fill" floatLabel="always">
+          <mat-label>Add answer option</mat-label>
+          <input matInput [formControl]="formArrayControl(i)">
+        </mat-form-field>
+      </ng-container>
+      <a mat-button (click)="onAddAnotherAnswer()">Add another answer
+        <mat-icon>add</mat-icon>
+      </a>
+    </ng-container>
+
+    <mat-list role="list">
+      <mat-list-item role="listitem">
+        <mat-checkbox 
+        [disabled]="questionForm.value.type != 'C'" 
+        [(ngModel)]="isAllowOwnAnswer"
+        [ngModelOptions]="{standalone: true}">
+          Allow user to specify their own answer
+        </mat-checkbox>
+      </mat-list-item>
+      <mat-list-item role="listitem">
+        <mat-checkbox [(ngModel)]="isAnswerRequired" [ngModelOptions]="{standalone: true}"
+          (ngModelChange)="onRequiredChange($event)">
+          This field is required
+        </mat-checkbox>
+      </mat-list-item>
+    </mat-list>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button (click)="onSubmit()" cdkFocusInitial mat-raised-button color="primary">Submit</button>
+</mat-dialog-actions>

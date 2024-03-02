@@ -1,0 +1,38 @@
+<mat-card>
+  <mat-card-content>
+
+    <ng-container *ngIf="questionFormArray.controls.length == 0">
+      No question available.
+      <br>
+    </ng-container>
+
+    <ng-container *ngFor="let control of questionFormArray.controls; let i = index;">
+      <form [formGroup]="questionForm(i)">
+        <h3>{{control.value.question}}</h3>
+        <ng-container [ngSwitch]="control.value.type">
+          <ng-container *ngSwitchCase="'C'">
+            <mat-list role="list">
+              <ng-container *ngFor="let question of listAnswer(i).controls; let idx = index;">
+                <mat-list-item role="listitem">
+                  <mat-checkbox (change)="onSelectOption(question?.value, i)">{{question?.value}}</mat-checkbox>
+                </mat-list-item>
+              </ng-container>
+            </mat-list>
+          </ng-container>
+          <ng-container *ngSwitchDefault>
+            <mat-form-field appearance="fill" floatLabel="always">
+              <textarea matInput formControlName="answer"></textarea>
+            </mat-form-field>
+          </ng-container>
+        </ng-container>
+      </form>
+    </ng-container>
+    <a mat-button (click)="openAddQuestionDialog()">Add New Question</a>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-raised-button color="primary" (click)="reviewAnswer()">
+      Review my answers
+      <mat-icon>chevron_right</mat-icon>
+    </button>
+  </mat-card-actions>
+</mat-card>

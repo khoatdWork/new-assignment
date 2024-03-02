@@ -1,0 +1,28 @@
+mat-card {
+  width: 650px;
+  border: 1px solid #2c2c2c;
+  border-radius: 0;
+  padding: 25px 15px;
+
+  mat-form-field {
+    width: 100%;
+  }
+
+  mat-card-content {
+    margin-bottom: 25px;
+  }
+
+  mat-card-actions {
+    justify-content: flex-end;
+  }
+}
+
+h3 {
+  font-weight: 500;
+  margin-bottom: 0;
+}
+
+a {
+  text-decoration: underline;
+  font-weight: 500;
+}

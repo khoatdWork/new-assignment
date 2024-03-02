@@ -1,0 +1,24 @@
+<mat-card>
+  <mat-card-content>
+    <ng-container *ngFor="let item of form | async">
+      <h5>{{item.question}}</h5>
+      <ng-container [ngSwitch]="item.type">
+        <ng-container *ngSwitchCase="'C'">
+          <mat-list role="list">
+            <ng-container *ngFor="let answer of item.answer">
+              <mat-list-item role="listitem" *ngIf="answer">
+                {{answer}}
+              </mat-list-item>
+            </ng-container>
+          </mat-list>
+        </ng-container>
+        <ng-container *ngSwitchDefault>
+          <p>{{item.answer}}</p>
+        </ng-container>
+      </ng-container>
+    </ng-container>
+  </mat-card-content>
+  <mat-card-actions>
+    <a mat-button routerLink="/form">Back to Forms Builder</a>
+  </mat-card-actions>
+</mat-card>
